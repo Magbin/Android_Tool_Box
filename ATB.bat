@@ -60,7 +60,8 @@ title Wear Tool Box
 echo 1.更改dpi
 echo 2.更改分辨率
 echo 3.安装任意.apk软件
-echo 4.
+echo 4.对系统分区进行处理
+echo 5.查看手机信息
 set /p wchoice="输入选项数字"
 if "%wchoice%"=="1" (
     goto changeDpi
@@ -79,3 +80,38 @@ adb shell wm density %dpi%
 echo 更改已成功完成!
 goto option_WTB
 :changeSize
+
+if “%wchoice%"=="4"
+(
+   python tool.py
+) else （
+    echo 未发现其脚本，执行错误
+	goto menu
+)
+
+
+
+#查看手机信息
+if "%wchoice%"=="5" 
+(
+adb devices
+echo.
+adb shell getprop ro.product.model
+echo.
+adb shell getprop ro.product.brand
+echo.
+adb shell getprop ro.build.version.release
+echo.
+adb shell getprop ro.build.version.sdk
+echo.
+adb shell getprop ro.product.manufacturer
+echo.
+adb shell getprop ro.product.device
+echo.
+adb shell getprop ro.build.version.security_patch
+echo.
+)  else （
+    echo 请连接设备
+	goto menu
+)
+    
