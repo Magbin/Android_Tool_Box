@@ -61,7 +61,21 @@ echo 1.更改dpi
 echo 2.更改分辨率
 echo 3.安装任意.apk软件
 echo 4.
+set /p wchoice="输入选项数字"
+if "%wchoice%"=="1" (
+    goto changeDpi
+) elseif "%wchoice%"=="2" (
+    goto changeSize
+) else (
+    echo 无效的选项，请重新选择。
+    goto menu
+)
 pause
 goto option_WTB
-
-exit /b
+REM 接口添加
+:changeDpi
+set /p dpi="请输入新的 DPI 值: "
+adb shell wm density %dpi%
+echo 更改已成功完成!
+goto option_WTB
+:changeSize
